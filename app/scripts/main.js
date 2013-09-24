@@ -10,7 +10,6 @@ window.music = {
     Services: [],
     init: function () {
         'use strict';
-        console.log(music.Providers);
 
         var layout = new Backbone.Layout({
             el: '#main'
