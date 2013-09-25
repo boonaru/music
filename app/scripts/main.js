@@ -8,6 +8,7 @@ window.music = {
     Routers: {},
     Providers: [],
     Services: [],
+    _collections: [], // keep track of collections we create, for debugging purposes
     init: function () {
         'use strict';
 
@@ -21,30 +22,27 @@ window.music = {
         _.each(this.Services, function(service) {
             valid_domains = _.union(valid_domains, service.domains);
         });
-        _.each(this.Providers, function(provider){ 
+        _.each(this.Providers, function(provider, i) { 
             song_collection = new music.Collections.SongsCollection();
             _.extend(song_collection, {domains: valid_domains}, provider, {model: music.Models.SongsModel.extend(provider.model)});
             song_collection.fetch({
                 success: function(m){
-                    songsview.render();
-                    song_collection.trigger('ready');
-                    console.log(m);
+                    if (i == music.Providers.length-1)
+                        layout.trigger('ready');
                 }
             });
+            song_collection.on('add', function(m) {
+                songsview.insertView(new music.Views.SongView({ model: m }));
+            }, this);
+            song_collection.on('remove', function(m) {
+                songsview.removeView({model: m});
+            });
+            music._collections.push(song_collection);
         });
 
-        // var songs = new this.Collections.SongsCollection();
-        // songs.fetch({
-        //     success: function(collection, response, options) {
-        //         songsview.render();
-        //         songs.trigger('ready');
-        //     }
-        // });
-        song_collection.on('add', function(m) {
-            songsview.insertView(new this.Views.SongView({ model: m }));
-        }, this);
-        song_collection.on('ready', function() {
+        layout.on('ready', function() {
             Backbone.history.start();
+            songsview.render();
         });
 
         layout.setViews({
