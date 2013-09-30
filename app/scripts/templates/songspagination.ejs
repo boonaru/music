@@ -1,1 +1,1 @@
-<a href="/#page/<%=(1*page-1)%>">Prev</a> | <a href="/#page/<%=(1*page+1)%>">Next</a>
+<% if ((1*page-1)>=0) { %><a href="/#page/<%=(1*page-1)%>">Prev</a> <% } else { %> Prev <% } %> | <a href="/#page/<%=(1*page+1)%>">Next</a>
