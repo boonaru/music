@@ -2,20 +2,21 @@ music.Providers = music.Providers || [];
 
 (function(){
   var reddit = {
-    name: 'Reddit - ListenToThis',
+    name: 'Reddit',
     options: {
-      count: 25
+      count: 25,
+      subreddits: ['listentothis', 'music']
     }
   };
-  reddit.url = 'http://reddit.com/r/listentothis.json?jsonp=?&count='+reddit.options.count;
+  reddit.url = 'http://reddit.com/r/'+reddit.options.subreddits.join('+')+'.json?jsonp=?&count='+reddit.options.count;
   reddit.pagination = {
     first_item: null,
     last_item: null,
     prev_url: function() {
-      return reddit.url+'&before='+this.first_item;
+      reddit.url = reddit.url+'&before='+this.first_item;
     },
     next_url: function() {
-      return reddit.url+'&after='+this.last_item;
+      reddit.url = reddit.url+'&after='+this.last_item;
     },
     update: function(first, last) {
       this.first_item = first;
@@ -29,8 +30,6 @@ music.Providers = music.Providers || [];
       return _.indexOf(domains, item.data.domain) > -1;
     });
     reddit.pagination.update(_.first(o).data.name, _.last(o).data.name);
-    console.log(reddit.pagination);
-    console.log(reddit.pagination.next_url());
     return o;
   };
   reddit.model = {
