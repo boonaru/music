@@ -20,19 +20,16 @@ window.music = {
             providers: this.Providers
         });
 
-        this.Layout.on('ready', function() {
-            Backbone.history.start();
-            songsview.render();
-        });
-
         this.Layout.setViews({
             '.songs': songsview
+        }).on('ready', function() {
+            Backbone.history.start();
         });
 
         new Backbone.Router({
             routes: {
                 '': function() {
-                    // songsview.gotoPage(0);
+                    this.navigate("page/0", {trigger: true, replace: true});
                 },
                 'page/:n': function(n) {
                     songsview.gotoPage(n);

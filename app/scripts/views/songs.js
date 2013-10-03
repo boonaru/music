@@ -62,6 +62,7 @@ music.Views = music.Views || {};
             var load = function() {
                 for (var i = n*parent.count; i < n*parent.count+parent.count; i++)
                     parent.insertView(parent.children[i]);
+                parent.page = n;
                 parent.render();
             };
             if (n < 0) {
@@ -74,8 +75,6 @@ music.Views = music.Views || {};
                 });
             }
             else load();
-            this.page = n;
-            this.render();
         },
         loadMore: function() {
             var deferreds = [];
@@ -84,6 +83,10 @@ music.Views = music.Views || {};
                 deferreds.push(collection.fetch());
             })
             return deferreds;
+        },
+        refresh: function() {
+            // TODO
+            // clear all collections and child views.
         },
         tagName: 'ul',
         page: 0,
