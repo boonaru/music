@@ -34,6 +34,10 @@ music.Views = music.Views || {};
                 }, this);
                 parent.collections.push(song_collection);
             });
+
+            this.player.on('refresh', function(){
+                this.refresh();
+            }, this);
         },
         render: function() {
           return this.$el.html(this.template);
@@ -86,6 +90,11 @@ music.Views = music.Views || {};
         refresh: function() {
             // TODO
             // clear all collections and child views.
+            console.log('refresh');
+            music.Routers.app.navigate("page/0", {trigger: true, replace: true});
+            _.each(this.collections, function(collection){
+                collection.fetch({reset: true});
+            });
         },
         tagName: 'table',
         className: 'table table-striped',

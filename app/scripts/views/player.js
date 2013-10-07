@@ -11,6 +11,8 @@ music.Views = music.Views || {};
         this.render();
       },
       afterRender: function() {
+        var that = this;
+
         this.$el.children('#volumeprogress').hover(function(){
           $(this).children('.volumebar').show("slide", { direction: "left" }, 100);
         }, function(){
@@ -22,7 +24,10 @@ music.Views = music.Views || {};
             $(this).children('.volumebar').show("slide", { direction: "left" }, 100);
         });
         this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
-        console.log(this.$el.children('#timeprogress').children('.progress-container').children('.progress').length);
+
+        this.$el.find('button.refresh').click(function(){
+          that.trigger('refresh');
+        })
       },
       manage: true,
       className: 'controls'

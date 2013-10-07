@@ -28,7 +28,7 @@ window.music = {
             Backbone.history.start();
         });
 
-        new Backbone.Router({
+        music.Routers.app = new Backbone.Router({
             routes: {
                 '': function() {
                     this.navigate("page/0", {trigger: true, replace: true});
