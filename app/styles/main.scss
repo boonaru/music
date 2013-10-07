@@ -1,7 +1,92 @@
 $iconSpritePath: '/images/glyphicons-halflings.png';
 @import 'sass-bootstrap/lib/bootstrap';
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+#main {
+  position: relative;
+  padding: 0;
+}
+div#player, div.pager {
+  margin-top: 10px;
+}
+div#songs {
+  margin-top: 50px;
+}
+div#loader {
+  position: absolute;
+  right: 30px; top: 24px;
+}
+
+div#player {
+  position: absolute;
+  left: 0px;
+  right: 70px;
+  height: 30px;
+}
+div#player div#timeprogress div.progress-container {
+  position: absolute;
+  left: 260px;
+  right: 79px;
+  top: 10px;
+}
+div#player div#timeprogress div.progress-container div.progress {
+  height: 10px;
+  overflow: visible;
+}
+div#player div#timeprogress div.progress-container div.progress a.ui-slider-handle {
+  outline: none;
+  background: -webkit-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background: -moz-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background: -ms-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background: -o-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background: radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background-size: 100% 100%, 10px 10px, 10px 10px, 100% 100%;
+  background-position: top center, 1px 1px, 0px 0px, top center;
+  border-radius: 50%;
+  border: 1px #bbb solid;
+}
+div#player div#timeprogress div.timecurrent,
+div#player div#timeprogress div.timetotal {
+  display: inline;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+div#player div#timeprogress div.timecurrent {
+  margin-left: 10px;
+}
+div#player div#timeprogress div.timetotal {
+  position: absolute;
+  right: 39px;
+}
+div#player div#volumeprogress {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+div#player div#volumeprogress button {
+  position: relative;
+  z-index: 1;
+}
+div#player div#volumeprogress div.volumebar {
+  width: 75px;
+  height: 30px;
+  border: 1px #ccc solid;
+  background: #FFF;
+  position: absolute;
+  right: -70px;
+  top: 0;
+  z-index: 2;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: none;
+}
+div#player div#volumeprogress div.volumebar div.progress {
+  margin: 8px 3px;
+  height: 10px;
+}
+
+.pager {
+  width: 67px;
+  position: absolute;
+  right: 0;
 }

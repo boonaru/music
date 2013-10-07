@@ -4,25 +4,35 @@ music.Providers = music.Providers || [];
   var reddit = {
     name: 'Reddit',
     options: {
-      count: 25,
+      count: 50,
       subreddits: ['listentothis', 'music']
     }
   };
-  reddit.url = 'http://reddit.com/r/'+reddit.options.subreddits.join('+')+'.json?jsonp=?&count='+reddit.options.count;
   reddit.pagination = {
     first_item: null,
     last_item: null,
-    prev_url: function() {
-      reddit.url = reddit.url+'&before='+this.first_item;
-    },
-    next_url: function() {
-      reddit.url = reddit.url+'&after='+this.last_item;
-    },
     update: function(first, last) {
       this.first_item = first;
       this.last_item = last;
     }
   };
+  reddit.url = function(previous){
+  	if (reddit.options.subreddits.length <= 0) {
+  		console.log("At least one subreddit needs to be defined.");
+  		return;
+  	}
+  	if (reddit.options.count <= 0) {
+  		console.log("Invalid count specified.");
+  		return;
+  	}
+
+  	var url = 'http://reddit.com/r/'+reddit.options.subreddits.join('+')+'.json?jsonp=?&count='+reddit.options.count;
+  	if (previous && reddit.pagination.first_item != null)
+  		url += "&before="+reddit.pagination.first_item;
+  	else if (reddit.pagination.last_item != null)
+  		url += "&after="+reddit.pagination.last_item;
+  	return url;
+  }
   reddit.parse = function(response) {
     var o = response.data.children, domains = this.domains;
     // Only return results which a service can use, i.e. a result with a valid service domain.
@@ -37,6 +47,7 @@ music.Providers = music.Providers || [];
       return {
         title: model.data.title,
         domain: model.data.domain,
+        url: model.data.url,
         raw: model.data
       };
     }

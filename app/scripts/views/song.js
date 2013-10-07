@@ -12,7 +12,7 @@ music.Views = music.Views || {};
         serialize: function() {
             return this.model.toJSON();
         },
-        tagName: 'li'
+        tagName: 'tr'
     });
 
 })();

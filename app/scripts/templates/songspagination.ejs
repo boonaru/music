@@ -1,1 +1,8 @@
-<% if ((1*page-1)>=0) { %><a href="/#page/<%=(1*page-1)%>">Prev</a> <% } else { %> Prev <% } %> | <a href="/#page/<%=(1*page+1)%>">Next</a>
+<div class="btn-group">
+<% if ((1*page-1)>=0) { %>
+  <a href="/#page/<%=(1*page-1)%>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-arrow-left"></span></a> 
+<% } else { %> 
+  <button class="btn btn-default btn-sm disabled" type="button"><span class="glyphicon glyphicon-arrow-left"></span></button>
+<% } %>
+  <a href="/#page/<%=(1*page+1)%>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-arrow-right"></span></a>
+</div>

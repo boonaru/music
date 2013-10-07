@@ -5,13 +5,13 @@ music.Views = music.Views || {};
 (function () {
     'use strict';
 
-    var pagination = new music.Views.SongsPaginationView({
-        page: 0
-    });
-
     music.Views.SongsView = Backbone.View.extend({
         template: JST['app/scripts/templates/songs.ejs'],
         collections: [],
+        pagination: new music.Views.SongsPaginationView({
+            page: 0
+        }),
+        player: new music.Views.PlayerView(),
         initialize: function() {
             var song_collection, valid_domains = [], parent = this;
             _.each(this.options.services, function(service) {
@@ -39,9 +39,8 @@ music.Views = music.Views || {};
           return this.$el.html(this.template);
         },
         afterRender: function() {
-            pagination.options.page = this.page;
-            pagination.render();
-            this.$el.after(pagination.$el);
+            this.pagination.options.page = this.page;
+            this.pagination.render();
         },
         add: function(view) {
           if (this.current++ < this.count) 
@@ -79,7 +78,7 @@ music.Views = music.Views || {};
         loadMore: function() {
             var deferreds = [];
             _.each(this.collections, function(collection){
-                collection.pagination.next_url();
+                // collection.pagination.next_url();
                 deferreds.push(collection.fetch());
             })
             return deferreds;
@@ -88,9 +87,10 @@ music.Views = music.Views || {};
             // TODO
             // clear all collections and child views.
         },
-        tagName: 'ul',
+        tagName: 'table',
+        className: 'table table-striped',
         page: 0,
-        count: 5,
+        count: 10,
         current: 0,
         children: []
     });

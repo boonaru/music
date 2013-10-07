@@ -15,6 +15,7 @@ music.Views = music.Views || {};
         render: function() {
           return this.$el.html(this.template(this.options));
         },
+        manage: true
     });
 
 })();
