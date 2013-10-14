@@ -11,9 +11,10 @@ music.Views = music.Views || {};
         pagination: new music.Views.SongsPaginationView({
             page: 0
         }),
-        player: new music.Views.PlayerView(),
+        player: null,
         initialize: function() {
             var song_collection, valid_domains = [], parent = this;
+            this.player = new music.Views.PlayerView({services: this.options.services});
             _.each(this.options.services, function(service) {
                 valid_domains = _.union(valid_domains, service.domains);
             });
@@ -101,7 +102,8 @@ music.Views = music.Views || {};
         page: 0,
         count: 10,
         current: 0,
-        children: []
+        children: [],
+        manage: true
     });
 
 })();

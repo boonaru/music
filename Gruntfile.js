@@ -243,6 +243,12 @@ module.exports = function (grunt) {
                     src: '<%= yeoman.app %>/bower_components/sass-bootstrap/fonts/*',
                     dest: '<%= yeoman.app %>/fonts',
                     flatten: true
+                },
+                {
+                    expand: true,
+                    src: '<%= yeoman.app %>/bower_components/sass-bootstrap/fonts/*',
+                    dest: '<%= yeoman.dist %>/fonts',
+                    flatten: true
                 }]
             }
         },

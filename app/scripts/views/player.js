@@ -7,7 +7,11 @@ music.Views = music.Views || {};
 
     music.Views.PlayerView = Backbone.View.extend({
       template: JST['app/scripts/templates/player.ejs'],
+      active_service: null,
       initialize: function() {
+        _.each(this.options.services, function(service) {
+          service.initialize(this);
+        });
         this.render();
       },
       afterRender: function() {

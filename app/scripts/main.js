@@ -1,5 +1,9 @@
 /*global music, $*/
 
+Backbone.Layout.configure({
+  manage: true,
+  keep: true
+});
 
 window.music = {
     Models: {},
@@ -21,25 +25,25 @@ window.music = {
         });
 
         this.Layout.setViews({
-            '#songs': songsview,
-            '.pager': songsview.pagination,
-            '#player': songsview.player
+          '#songs': songsview,
+          '.pager': songsview.pagination,
+          '#player': songsview.player
         }).on('ready', function() {
-            Backbone.history.start();
+          Backbone.history.start();
         });
 
         music.Routers.app = new Backbone.Router({
-            routes: {
-                '': function() {
-                    this.navigate("page/0", {trigger: true, replace: true});
-                },
-                'page/:n': function(n) {
-                    songsview.gotoPage(n);
-                },
-                'play/:url': function(url) {
-                    console.log(url);
-                }
+          routes: {
+            '': function() {
+              this.navigate("page/0", {trigger: true, replace: true});
+            },
+            'page/:n': function(n) {
+              songsview.gotoPage(n);
+            },
+            'play/*url': function(url) {
+              console.log(url);
             }
+          }
         });
 
         var opts = {
@@ -61,22 +65,18 @@ window.music = {
           left: 'auto' // Left position relative to parent in px
         };
         var target = document.getElementById('loader');
-        var spinner = new Spinner(opts);
+        // var spinner = new Spinner(opts);
 
-        $(document).ajaxStart(function() {
-            spinner.spin(target);
-        });
-        $(document).ajaxComplete(function() {
-            spinner.stop();
-        });
+        // $(document).ajaxStart(function() {
+        //     spinner.spin(target);
+        // });
+        // $(document).ajaxComplete(function() {
+        //     spinner.stop();
+        // });
     }
 };
 
 $(document).ready(function () {
-    'use strict';
-    Backbone.Layout.configure({
-        manage: true,
-        keep: true
-    });
-    music.init();
+  'use strict';    
+  music.init();
 });
