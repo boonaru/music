@@ -31,10 +31,22 @@ music.Views = music.Views || {};
 
         this.$el.find('button.refresh').click(function(){
           that.trigger('refresh');
-        })
+        });
       },
       manage: true,
-      className: 'controls'
+      className: 'controls',
+      play: function(toPlay) {
+        if (typeof toPlay == "string") {
+          this.playSingle(toPlay);
+        }
+        else if (typeof toPlay == "array") {
+          // _.each(toPlay)
+        }
+      },
+      playSingle: function(url) {
+        var uri = new URI(url);
+        console.log(uri.domain());
+      }
     });
 
 })();

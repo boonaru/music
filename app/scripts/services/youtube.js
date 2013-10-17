@@ -4,8 +4,7 @@ music.Services = music.Services || [];
 	music.Services.push({
 		name: 'YouTube',
 		domains: ['youtube.com', 'youtu.be'],
-    initialize: function(player) {
-      console.log(player);
+    initialize: function() {
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -35,20 +34,17 @@ music.Services = music.Services || [];
         });
       }
 
-      // 4. The API will call this function when the video player is ready.
       window.onPlayerReady = function(event) {
         event.target.loadVideoById("mEGW1Xe9p14");
       }
 
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
       var done = false;
       window.onPlayerStateChange = function(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
+        event.target.stopVideo();
+        // if (event.data == YT.PlayerState.PLAYING && !done) {
+        //   setTimeout(stopVideo, 6000);
+        //   done = true;
+        // }
       }
       function stopVideo() {
         player.stopVideo();

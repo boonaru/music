@@ -39,6 +39,8 @@ music.Views = music.Views || {};
             this.player.on('refresh', function(){
                 this.refresh();
             }, this);
+
+            this.player.play("http://www.youtube.com/watch?v=iZvm9NhRUHk");
         },
         render: function() {
           return this.$el.html(this.template);
