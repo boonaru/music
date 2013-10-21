@@ -46,6 +46,16 @@ music.Views = music.Views || {};
       playSingle: function(url) {
         var uri = new URI(url);
         console.log(uri.domain());
+
+        var domain = uri.domain();
+        _.every(this.options.services, function(service) {
+          var index = _.indexOf(service.domains, domain);
+          if (index >= 0) {
+            this.active_service = service;
+            return false;
+          }
+          return true;
+        }, this);
       }
     });
 

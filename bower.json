@@ -12,9 +12,5 @@
     "swfobject": "*",
     "uri.js": "~1.11.2"
   },
-  "devDependencies": {},
-  "resolutions": {
-    "backbone": "~1.0",
-    "jquery": "~2.0.3"
-  }
+  "devDependencies": {}
 }
