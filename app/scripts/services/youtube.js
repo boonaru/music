@@ -6,17 +6,21 @@ music.Services = music.Services || [];
 		domains: ['youtube.com', 'youtu.be'],
     ytplayer: null,
     pending: "",
-    initialize: function() {
+    initialize: function(player) {
+      player.on("load", function(url) {
+        if (_.indexOf(this.domains, url.domain()) > -1) {
+          this.play(url);
+        }
+      }, this);
+
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
       var that = this;
       window.onYouTubeIframeAPIReady = function() {
-        this.ytplayer = new YT.Player('playervideo', {
+        that.ytplayer = new YT.Player('playervideo', {
           playerVars: {
             modestbranding: 1,
             autoplay: 0,
@@ -37,10 +41,10 @@ music.Services = music.Services || [];
       }
 
       window.onPlayerReady = function(event) {
-        if (this.pending !== "") {
-          console.log('pending: '+this.pending);
-          event.target.loadVideoById(this.pending);
-          event.target.playVideo();
+        if (that.pending !== "") {
+          event.target.loadVideoById(that.pending);
+          event.target.stopVideo();
+          pending = "";
         }
         //event.target.loadVideoById("mEGW1Xe9p14");
       }
@@ -59,11 +63,8 @@ music.Services = music.Services || [];
     },
     load: function(id) {
       if (typeof id === "string") {
-        console.log('1: '+id);
-        console.log(typeof this.ytplayer);
-        console.log(this.ytplayer);
+        console.log(id);
         if (this.ytplayer === null) {
-          console.log('set pending to '+id);
           this.pending = id;
         } else {
           this.ytplayer.loadVideoById(id);
