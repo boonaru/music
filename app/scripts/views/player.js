@@ -32,7 +32,17 @@ music.Views = music.Views || {};
         this.$el.find('button.refresh').click(function(){
           that.trigger('refresh');
         });
+
+        this.on("play", function() {
+          console.log("PLAYER: playing");
+        });
       },
+      // not working?
+      // events: {
+      //   "play": function() {
+      //     console.log("PLAYER: Playing");
+      //   }
+      // },
       manage: true,
       className: 'controls',
       play: function(toPlay) {

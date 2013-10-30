@@ -51,6 +51,12 @@ music.Services = music.Services || [];
 
       var done = false;
       window.onPlayerStateChange = function(event) {
+        switch (event.data) {
+          case YT.PlayerState.PLAYING:
+            player.trigger("play");
+          break;
+          // TODO: more states, trigger player
+        }
         //event.target.stopVideo();
         // if (event.data == YT.PlayerState.PLAYING && !done) {
         //   setTimeout(stopVideo, 6000);
