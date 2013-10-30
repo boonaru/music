@@ -38,7 +38,7 @@ music.Services = music.Services || [];
             'onStateChange': onPlayerStateChange
           }
         });
-      }
+      };
 
       window.onPlayerReady = function(event) {
         if (that.pending !== "") {
@@ -47,7 +47,7 @@ music.Services = music.Services || [];
           pending = "";
         }
         //event.target.loadVideoById("mEGW1Xe9p14");
-      }
+      };
 
       var done = false;
       window.onPlayerStateChange = function(event) {
@@ -56,10 +56,7 @@ music.Services = music.Services || [];
         //   setTimeout(stopVideo, 6000);
         //   done = true;
         // }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
+      };
     },
     load: function(id) {
       if (typeof id === "string") {
@@ -83,9 +80,13 @@ music.Services = music.Services || [];
         else
           return this.play(new URI(str));
       } else if (typeof str === "object" && typeof str.query === "function") {
-        var q = str.query();
-        if (new RegExp("v=").test(q))
-          return this.play(str.query().replace("v=", ""));
+        var query = str.query();
+        query = query.split('&');
+        _.each(query, function(q) {
+          console.log(q);
+          if (new RegExp("v=").test(q))
+            return this.play(q.replace("v=", ""));
+        }, this);
       }
     },
     pause: function() {
