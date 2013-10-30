@@ -4,6 +4,8 @@ music.Services = music.Services || [];
 	music.Services.push({
 		name: 'YouTube',
 		domains: ['youtube.com', 'youtu.be'],
+    ytplayer: null,
+    pending: "",
     initialize: function() {
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
@@ -12,9 +14,9 @@ music.Services = music.Services || [];
 
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
-      var ytplayer;
+      var that = this;
       window.onYouTubeIframeAPIReady = function() {
-        ytplayer = new YT.Player('playervideo', {
+        this.ytplayer = new YT.Player('playervideo', {
           playerVars: {
             modestbranding: 1,
             autoplay: 0,
@@ -35,12 +37,17 @@ music.Services = music.Services || [];
       }
 
       window.onPlayerReady = function(event) {
-        event.target.loadVideoById("mEGW1Xe9p14");
+        if (this.pending !== "") {
+          console.log('pending: '+this.pending);
+          event.target.loadVideoById(this.pending);
+          event.target.playVideo();
+        }
+        //event.target.loadVideoById("mEGW1Xe9p14");
       }
 
       var done = false;
       window.onPlayerStateChange = function(event) {
-        event.target.stopVideo();
+        //event.target.stopVideo();
         // if (event.data == YT.PlayerState.PLAYING && !done) {
         //   setTimeout(stopVideo, 6000);
         //   done = true;
@@ -50,8 +57,35 @@ music.Services = music.Services || [];
         player.stopVideo();
       }
     },
-    play: function() {
-
+    load: function(id) {
+      if (typeof id === "string") {
+        console.log('1: '+id);
+        console.log(typeof this.ytplayer);
+        console.log(this.ytplayer);
+        if (this.ytplayer === null) {
+          console.log('set pending to '+id);
+          this.pending = id;
+        } else {
+          this.ytplayer.loadVideoById(id);
+          this.ytplayer.playVideo();
+        }
+        return;
+      }
+    },
+    play: function(str) {
+      // str should be either the video id, url, or a URI object
+      if (typeof str === "string") {
+        console.log(str.indexOf("http"));
+        if (str.indexOf("http") === -1) {
+          return this.load(str);
+        }
+        else
+          return this.play(new URI(str));
+      } else if (typeof str === "object" && typeof str.query === "function") {
+        var q = str.query();
+        if (new RegExp("v=").test(q))
+          return this.play(str.query().replace("v=", ""));
+      }
     },
     pause: function() {
 
