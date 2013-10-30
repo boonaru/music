@@ -44,6 +44,8 @@ music.Views = music.Views || {};
         }
       },
       playSingle: function(url) {
+        // TODO: what happens when multiple services think they should play the media?
+        // i.e. what happens when two or more services have the same domain?
         this.trigger("load", new URI(url));
       }
     });
