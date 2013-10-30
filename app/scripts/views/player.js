@@ -11,7 +11,7 @@ music.Views = music.Views || {};
       initialize: function() {
         _.each(this.options.services, function(service) {
           service.initialize(this);
-        });
+        }, this);
         this.render();
       },
       afterRender: function() {
@@ -45,7 +45,7 @@ music.Views = music.Views || {};
       },
       playSingle: function(url) {
         var uri = new URI(url);
-        console.log(uri.domain());
+        //console.log(uri.domain());
 
         var domain = uri.domain();
         _.every(this.options.services, function(service) {
@@ -56,6 +56,9 @@ music.Views = music.Views || {};
           }
           return true;
         }, this);
+
+        //console.log(this.active_service);
+        this.active_service.play(url);
       }
     });
 
