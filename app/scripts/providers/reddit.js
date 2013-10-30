@@ -26,8 +26,9 @@ music.Providers = music.Providers || [];
   		return;
   	}
 
-  	var url = 'http://reddit.com/r/'+reddit.options.subreddits.join('+')+'.json?jsonp=?&count='+reddit.options.count;
-  	if (previous && reddit.pagination.first_item != null)
+  	//var url = 'http://reddit.com/r/'+reddit.options.subreddits.join('+')+'.json?jsonp=?&count='+reddit.options.count;
+  	var url = '/listentothis.json';
+    if (previous && reddit.pagination.first_item != null)
   		url += "&before="+reddit.pagination.first_item;
   	else if (reddit.pagination.last_item != null)
   		url += "&after="+reddit.pagination.last_item;
