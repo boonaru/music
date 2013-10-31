@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "dependencies": {
     "sass-bootstrap": "3.0.0",
-    "jquery": "~1.9.0",
+    "jquery": "2.0.3",
     "underscore": "1.5.2",
-    "backbone": "1.0.0",
+    "backbone": "1.1.0",
     "modernizr": "~2.6.2",
-    "layoutmanager": "0.9.3",
+    "layoutmanager": "0.9.4",
     "jquery.ui": "~1.10.3",
     "swfobject": "*",
     "uri.js": "~1.11.2"
