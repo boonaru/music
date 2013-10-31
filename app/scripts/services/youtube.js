@@ -49,12 +49,21 @@ music.Services = music.Services || [];
         //event.target.loadVideoById("mEGW1Xe9p14");
       };
 
-      var done = false;
+      var done = false, timeout;
       window.onPlayerStateChange = function(event) {
         switch (event.data) {
           case YT.PlayerState.PLAYING:
+            player.trigger("initial_info", event.target.getDuration());
+            timeout = setInterval(function() {
+              player.trigger("info", event.target.getCurrentTime());
+            }, 100);
             player.trigger("play");
-          break;
+            break;
+          case YT.PlayerState.PAUSED:
+            console.log("pause");
+            player.trigger("pause");
+            clearInterval(timeout);
+            break;
           // TODO: more states, trigger player
         }
         //event.target.stopVideo();
