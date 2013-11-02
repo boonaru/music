@@ -37,15 +37,23 @@ var printTime = function(time) {
         });
         this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
 
+        this.$el.find('button.play').click(function(){
+          that.trigger('service:play');
+        });
+        this.$el.find('button.pause').click(function(){
+          that.trigger('service:pause');
+        });
         this.$el.find('button.refresh').click(function(){
           that.trigger('refresh');
         });
 
         this.on("play", function() {
-          $('button.btn.play').removeClass('play').addClass('pause').children('span').removeClass('glyphicon-play').addClass('glyphicon-pause');
+          // $('button.btn.play').removeClass('play').addClass('pause').children('span').removeClass('glyphicon-play').addClass('glyphicon-pause');
+          $('button.btn.play').hide().siblings('button.btn.pause').show();
         });
         this.on("pause", function() {
-          $('button.btn.pause').removeClass('pause').addClass('play').children('span').removeClass('glyphicon-pause').addClass('glyphicon-play');
+          // $('button.btn.pause').removeClass('pause').addClass('play').children('span').removeClass('glyphicon-pause').addClass('glyphicon-play');
+          $('button.btn.pause').hide().siblings('button.btn.play').show();
         });
         this.on("initial_info", function(duration) {
           this.current.duration = duration;

@@ -12,6 +12,12 @@ music.Services = music.Services || [];
           this.play(url);
         }
       }, this);
+      player.on("service:play", function() {
+        this.ytplayer.playVideo();
+      }, this);
+      player.on("service:pause", function() {
+        this.ytplayer.pauseVideo();
+      }, this);
 
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
@@ -46,7 +52,6 @@ music.Services = music.Services || [];
           event.target.stopVideo();
           pending = "";
         }
-        //event.target.loadVideoById("mEGW1Xe9p14");
       };
 
       var done = false, timeout;
