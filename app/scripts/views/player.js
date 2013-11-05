@@ -26,7 +26,6 @@ var printTime = function(time) {
         var that = this;
 
         var dir = "left";
-        $('#volumeprogress').find('.progress').css('background', 'red');
         console.log($('#volumeprogress').children('.volumebar .progress').hasClass('vertical'));
         if ($('#volumeprogress').find('.progress').hasClass('vertical')) {
           dir = "top";
@@ -36,11 +35,11 @@ var printTime = function(time) {
           $(this).children('.volumebar').show("slide", { direction: dir }, 100);
         }, function(){
           $(this).children('.volumebar').hide("slide", { direction: dir }, 100);
-        }).click(function(){
-          if ($(this).children('.volumebar').is(':visible'))
-            $(this).children('.volumebar').hide("slide", { direction: dir }, 100);
+        }).children('button.volume').click(function(){
+          if ($(this).next('.volumebar').is(':visible'))
+            $(this).next('.volumebar').hide("slide", { direction: dir }, 100);
           else
-            $(this).children('.volumebar').show("slide", { direction: dir }, 100);
+            $(this).next('.volumebar').show("slide", { direction: dir }, 100);
         });
 
         this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
