@@ -10,7 +10,8 @@
     "layoutmanager": "0.9.4",
     "jquery.ui": "~1.10.3",
     "swfobject": "*",
-    "uri.js": "~1.11.2"
+    "uri.js": "~1.11.2",
+    "compass-breakpoint": "~2.0.6"
   },
   "devDependencies": {}
 }
