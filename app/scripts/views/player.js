@@ -15,10 +15,23 @@ var printTime = function(time) {
     music.Views.PlayerView = Backbone.View.extend({
       template: JST['app/scripts/templates/player.ejs'],
       active_service: null,
+      domains: [],
       current: {},
       initialize: function() {
+        var init;
         _.each(this.options.services, function(service) {
-          service.initialize(this);
+          init = true;
+          _.each(service.domains, function(domain) {
+            if (_.indexOf(this.domains, domain) > -1) {
+              console.log("Domain "+domain+" has already been registered.");
+              init = false;
+              return;
+            }
+          }, this);
+          if (init) {
+            this.domains.push.apply(this.domains, service.domains);
+            service.initialize(this);
+          }
         }, this);
         this.render();
       },
@@ -55,11 +68,9 @@ var printTime = function(time) {
         });
 
         this.on("play", function() {
-          // $('button.btn.play').removeClass('play').addClass('pause').children('span').removeClass('glyphicon-play').addClass('glyphicon-pause');
           $('button.btn.play').hide().siblings('button.btn.pause').show();
         });
         this.on("pause", function() {
-          // $('button.btn.pause').removeClass('pause').addClass('play').children('span').removeClass('glyphicon-pause').addClass('glyphicon-play');
           $('button.btn.pause').hide().siblings('button.btn.play').show();
         });
         this.on("initial_info", function(duration) {
