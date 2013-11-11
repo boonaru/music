@@ -38,16 +38,7 @@ var printTime = function(time) {
       afterRender: function() {
         var that = this;
 
-        var dir = "left";
-        if (this.$el.children('#volumeprogress').children('.volumebar').hasClass('vertical')) {
-          dir = "top";
-          console.log("vertical");
-        }
-        this.$el.children('#volumeprogress')/*.hover(function(){
-          $(this).children('.volumebar').animate({ height: "toggle" }, 200);
-        }, function(){
-          $(this).children('.volumebar').animate({ height: "toggle" }, 200);
-        })*/.children('button.volume').click(function(){
+        this.$el.children('#volumeprogress').children('button.volume').click(function(){
           if ($(this).next('.volumebar').is(':visible'))
             $(this).next('.volumebar').animate({ height: "toggle" }, 200);
           else
