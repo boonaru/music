@@ -9,6 +9,7 @@ music.Services = music.Services || [];
     initialize: function(player) {
       player.on("load", function(url) {
         if (_.indexOf(this.domains, url.domain()) > -1) {
+          console.log('playing '+url.domain());
           this.play(url);
         }
       }, this);
@@ -80,7 +81,6 @@ music.Services = music.Services || [];
     },
     load: function(id) {
       if (typeof id === "string") {
-        console.log(id);
         if (this.ytplayer === null) {
           this.pending = id;
         } else {
@@ -93,20 +93,22 @@ music.Services = music.Services || [];
     play: function(str) {
       // str should be either the video id, url, or a URI object
       if (typeof str === "string") {
-        console.log(str.indexOf("http"));
         if (str.indexOf("http") === -1) {
           return this.load(str);
         }
         else
           return this.play(new URI(str));
       } else if (typeof str === "object" && typeof str.query === "function") {
-        var query = str.query();
-        query = query.split('&');
-        _.each(query, function(q) {
-          console.log(q);
-          if (new RegExp("v=").test(q))
-            return this.play(q.replace("v=", ""));
-        }, this);
+        if (str.domain() == this.domains[1]) {
+          return this.play(str.path().replace('/', ''));
+        }
+        else {
+          var query = str.query().split('&');
+          _.each(query, function(q) {
+            if (new RegExp("v=").test(q))
+              return this.play(q.replace("v=", ""));
+          }, this);
+        }
       }
     },
     pause: function() {
