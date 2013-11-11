@@ -39,20 +39,19 @@ var printTime = function(time) {
         var that = this;
 
         var dir = "left";
-        console.log($('#volumeprogress').children('.volumebar .progress').hasClass('vertical'));
-        if ($('#volumeprogress').find('.progress').hasClass('vertical')) {
+        if (this.$el.children('#volumeprogress').children('.volumebar').hasClass('vertical')) {
           dir = "top";
           console.log("vertical");
         }
-        this.$el.children('#volumeprogress').hover(function(){
-          $(this).children('.volumebar').show("slide", { direction: dir }, 100);
+        this.$el.children('#volumeprogress')/*.hover(function(){
+          $(this).children('.volumebar').animate({ height: "toggle" }, 200);
         }, function(){
-          $(this).children('.volumebar').hide("slide", { direction: dir }, 100);
-        }).children('button.volume').click(function(){
+          $(this).children('.volumebar').animate({ height: "toggle" }, 200);
+        })*/.children('button.volume').click(function(){
           if ($(this).next('.volumebar').is(':visible'))
-            $(this).next('.volumebar').hide("slide", { direction: dir }, 100);
+            $(this).next('.volumebar').animate({ height: "toggle" }, 200);
           else
-            $(this).next('.volumebar').show("slide", { direction: dir }, 100);
+            $(this).next('.volumebar').animate({ height: "toggle" }, 200);
         });
 
         this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
@@ -83,7 +82,7 @@ var printTime = function(time) {
           var $element = $('#timeprogress .progress-bar');
           var position = (f*100*$element.parent('.progress').width())/$element.parent('.progress').width();
           $element.attr('aria-valuenow', f).animate({width: position+'%'}, 0);
-          $element.siblings('.ui-slider-handle').css('left', position+'%');
+          $element.siblings('.ui-slider-handle').css('left', position+'%').css('left', parseFloat(($element.siblings('.ui-slider-handle').css('left'))+$element.siblings('.ui-slider-handle').width()/2));
         });
       },
       manage: true,
