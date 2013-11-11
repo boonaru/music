@@ -1,4 +1,5 @@
 $iconSpritePath: '/images/glyphicons-halflings.png';
+@import 'compass-breakpoint/stylesheets/breakpoint';
 @import 'sass-bootstrap/lib/bootstrap';
 
 .vertical .progress {
@@ -14,19 +15,54 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     border: none;
 }
 
+iframe {
+  width: 100%;
+  height: auto;
+}
+
 #main {
   position: relative;
   padding: 0;
 }
 
-#player-controls {
-  
+#songs {
+  margin-top: 10px;
+  @include breakpoint(500px) {
+    margin-top: 40px;
+  }
+}
+
+.pager {
+  margin: 0;
+  margin-top: 70px;
+  text-align: right;
+  @include breakpoint(500px) {
+    position: absolute;
+    right: 0px;
+    margin-top: 0px;
+  }
+}
+
+#player {
+  position: relative;
+  @include breakpoint(500px) {
+    position: absolute;
+    right: 69px;
+    left: 0px;
+  }
 }
 
 #timeprogress {
   width: 100%;
   position: relative;
   top: 10px;
+  @include breakpoint(500px) {
+    position: absolute;
+    left: 211px;
+    right: 34px;
+    width: auto;
+    top: 6px;
+  }
 }
 #timeprogress .timecurrent,
 #timeprogress .timetotal,
@@ -39,8 +75,8 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
   text-align: center;
 }
 #timeprogress .progress-container {
-  left: 56px;
-  right: 56px;
+  left: 60px;
+  right: 60px;
   margin-top: 3px;
 }
 #timeprogress .timetotal {
@@ -74,7 +110,7 @@ div#player div#timeprogress div.progress-container div.progress a.ui-slider-hand
 }
 
 div#player div#volumeprogress {
-  float: right;
+  
 }
 div#player div#volumeprogress button {
   position: relative;
@@ -101,105 +137,6 @@ div#player div#volumeprogress div.volumebar div.progress {
   margin: 8px 3px;
   height: 10px;
 }
-
-
-/*
-div#player, div.pager {
-  margin-top: 10px;
-}
-div#songs {
-  margin-top: 50px;
-}
-div#loader {
-  position: absolute;
-  right: 30px; top: 24px;
-}
-
-div#player {
-  position: absolute;
-  left: 0px;
-  right: 70px;
-  height: 30px;
-}
-div#player div#timeprogress div.progress-container {
-  position: absolute;
-  left: 260px;
-  right: 79px;
-  top: 10px;
-}
-div#player div#timeprogress div.progress-container div.progress {
-  height: 10px;
-  overflow: visible;
-}
-div#player div#timeprogress div.progress-container div.progress a.ui-slider-handle {
-  outline: none;
-  border-radius: 50%;
-  border: 1px #bbb solid;
-  background: #f2f2f2;
-  width: 17px;
-  height: 17px;
-  box-shadow: 0px 0px 2px rgba(0,0,0,.2) inset;
-  top: -5px;
-  margin-left: -2px;
-}
-div#player div#timeprogress div.progress-container div.progress a.ui-slider-handle:after {
-  width: 5px;
-  height: 5px;
-  background-color: #aaa;
-  content: " ";
-  position: absolute;
-  border-radius: 50%;
-  top: 5px;
-  left: 5px;
-  box-shadow: 0px 0px 1px #fff;
-}
-div#player div#timeprogress div.timecurrent,
-div#player div#timeprogress div.timetotal {
-  display: inline;
-  width: 30px;
-  line-height: 30px;
-  text-align: center;
-}
-div#player div#timeprogress div.timecurrent {
-  margin-left: 10px;
-}
-div#player div#timeprogress div.timetotal {
-  position: absolute;
-  right: 39px;
-}
-div#player div#volumeprogress {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-}
-div#player div#volumeprogress button {
-  position: relative;
-  z-index: 1;
-}
-div#player div#volumeprogress div.volumebar {
-  width: 75px;
-  height: 30px;
-  border: 1px #ccc solid;
-  background: #FFF;
-  position: absolute;
-  right: -70px;
-  top: 0;
-  z-index: 2;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  display: none;
-}
-div#player div#volumeprogress div.volumebar div.progress {
-  margin: 8px 3px;
-  height: 10px;
-}
-
-.pager {
-  width: 67px;
-  position: absolute;
-  right: 0;
-}
-*/
 
 button.pause {
   display: none;
