@@ -8,6 +8,8 @@ music.Views = music.Views || {};
     music.Views.SongsView = Backbone.View.extend({
         template: JST['app/scripts/templates/songs.ejs'],
         collections: [],
+        songs: [],
+        index: 0,
         pagination: new music.Views.SongsPaginationView({
             page: 0
         }),
@@ -23,21 +25,38 @@ music.Views = music.Views || {};
                 _.extend(song_collection, {domains: valid_domains}, provider, {model: music.Models.SongsModel.extend(provider.model)});
                 song_collection.fetch({
                     success: function(m){
+                        parent.songs.push.apply(parent.songs, m.models);
                         if (i == parent.options.providers.length-1)
                             music.Layout.trigger('ready');
                     }
                 });
                 song_collection.on('add', function(m) {
                     parent.add(new music.Views.SongView({ model: m }));
+                    parent.songs.push(m);
                 }, this);
                 song_collection.on('remove', function(m) {
                     parent.remove({model: m});
+                    parent.songs.without(m);
                 }, this);
                 parent.collections.push(song_collection);
-            });
+            }, this);
 
             this.player.on('refresh', function(){
                 this.refresh();
+            }, this);
+            this.player.on('next', function(){
+                if (this.index == this.songs.length)
+                    return;
+                console.log(this.index);
+                window.location = "#play/" + this.songs[++this.index].get("url"); // can't use navigate because query params get stripped
+                //this.player.play(this.songs[++this.index]);
+            }, this);
+            this.player.on('prev', function(){
+                if (this.index == 0)
+                    return;
+                window.location = "#play/" + this.songs[--this.index].get("url"); // can't use navigate because query params get stripped
+                console.log(this.index);
+                //this.player.play(this.songs[--this.index]);
             }, this);
 
             //this.player.play("http://www.youtube.com/watch?v=iZvm9NhRUHk");

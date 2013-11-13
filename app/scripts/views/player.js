@@ -57,6 +57,13 @@ var printTime = function(time) {
           that.trigger('refresh');
         });
 
+        this.$el.find('button.prev').click(function(){
+          that.trigger('prev');
+        });
+        this.$el.find('button.next').click(function(){
+          that.trigger('next');
+        });
+
         this.on("play", function() {
           $('button.btn.play').hide().siblings('button.btn.pause').show();
         });
@@ -82,6 +89,9 @@ var printTime = function(time) {
         if (typeof toPlay == "string") {
           this.playSingle(toPlay);
         }
+        else if(typeof toPlay == "object" && toPlay.get("url") != null) {
+          this.playSingle(toPlay.get("url"));
+        }
         else if (typeof toPlay == "array") {
           // _.each(toPlay)
         }
@@ -89,6 +99,7 @@ var printTime = function(time) {
       playSingle: function(url) {
         // TODO: what happens when multiple services think they should play the media?
         // i.e. what happens when two or more services have the same domain?
+        console.log(url);
         this.trigger("load", new URI(url));
       }
     });
