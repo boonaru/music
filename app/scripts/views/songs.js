@@ -44,19 +44,17 @@ music.Views = music.Views || {};
             this.player.on('refresh', function(){
                 this.refresh();
             }, this);
+            
             this.player.on('next', function(){
                 if (this.index == this.songs.length)
                     return;
                 console.log(this.index);
                 window.location = "#play/" + this.songs[++this.index].get("url"); // can't use navigate because query params get stripped
-                //this.player.play(this.songs[++this.index]);
             }, this);
             this.player.on('prev', function(){
                 if (this.index == 0)
                     return;
                 window.location = "#play/" + this.songs[--this.index].get("url"); // can't use navigate because query params get stripped
-                console.log(this.index);
-                //this.player.play(this.songs[--this.index]);
             }, this);
 
             //this.player.play("http://www.youtube.com/watch?v=iZvm9NhRUHk");

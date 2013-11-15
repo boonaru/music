@@ -46,6 +46,9 @@ var printTime = function(time) {
         });
 
         this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
+        this.$el.children('#volumeprogress').children('.progress-container').children('.progress').slider({
+          orientation: 'vertical'
+        });
 
         this.$el.find('button.play').click(function(){
           that.trigger('service:play');
