@@ -45,9 +45,22 @@ var printTime = function(time) {
             $(this).next('.volumebar').animate({ height: "toggle" }, 200);
         });
 
-        this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider();
+        this.$el.children('#timeprogress').children('.progress-container').children('.progress').slider({
+          range: 'min',
+          min: 0,
+          max: 100,
+          step: .25
+        });
         this.$el.children('#volumeprogress').children('.progress-container').children('.progress').slider({
-          orientation: 'vertical'
+          orientation: 'vertical',
+          range: 'max',
+          min: 0,
+          max: 100,
+          value: 100, // needs to be 100 so handle appears at top
+          slide: function(event, ui) {
+            $(this).slider('value', 100-ui.value);
+            console.log($(this).slider('value'));
+          }
         });
 
         this.$el.find('button.play').click(function(){
@@ -80,11 +93,10 @@ var printTime = function(time) {
         this.on("info", function(time, loaded) {
           $('#timeprogress .timecurrent').html(printTime(time));
           var f = time/this.current.duration;
-          var $element = $('#timeprogress .progress-bar');
-          var position = (f*100*$element.parent('.progress').width())/$element.parent('.progress').width();
-          $element.attr('aria-valuenow', f).animate({width: position+'%'}, 0);
-          $element.siblings('.ui-slider-handle').css('left', position+'%').css('left', parseFloat(($element.siblings('.ui-slider-handle').css('left'))+$element.siblings('.ui-slider-handle').width()/2));
-        });
+          var $element = this.$el.children('#timeprogress').children('.progress-container').children('.progress');
+          var position = (f*100*$element.width())/$element.width();
+          $element.slider('value', position);
+        }, this);
       },
       manage: true,
       className: 'controls',

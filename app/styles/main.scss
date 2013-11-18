@@ -9,10 +9,6 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
     float: left;
     margin-right: 20px;
     background: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border: none;
 }
 
 iframe {
@@ -29,6 +25,17 @@ iframe {
   margin-top: 10px;
   @include breakpoint(500px) {
     margin-top: 40px;
+  }
+  table {
+    td {
+      padding: 0px;
+      a {
+        margin: 8px;
+        display: block;
+        width: 100%;
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -115,22 +122,27 @@ iframe {
     background: #FFF;
     position: absolute;
     z-index: 2;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
     display: none;
     overflow: visible;
     &.horizontal {
       right: -70px;
       top: 0;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
     }
     &.vertical {
       top: 28px;
       width: 34px;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
       .progress {
-        margin: 3px auto;
+        margin: 10px auto;
         float: none;
         width: 8px;
       }
+    }
+    .progress {
+      overflow: visible;
     }
     a.ui-slider-handle {
       outline: none;
