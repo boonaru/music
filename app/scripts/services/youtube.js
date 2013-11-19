@@ -19,6 +19,9 @@ music.Services = music.Services || [];
       player.on("service:pause", function() {
         this.ytplayer.pauseVideo();
       }, this);
+      player.on("service:info", function() {
+        player.trigger("info", this.ytplayer.getCurrentTime());
+      }, this);
 
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
@@ -55,20 +58,16 @@ music.Services = music.Services || [];
         }
       };
 
-      var done = false, timeout;
+      var done = false;
       window.onPlayerStateChange = function(event) {
         switch (event.data) {
           case YT.PlayerState.PLAYING:
             player.trigger("initial_info", event.target.getDuration());
-            timeout = setInterval(function() {
-              player.trigger("info", event.target.getCurrentTime());
-            }, 100);
             player.trigger("play");
             break;
           case YT.PlayerState.PAUSED:
             console.log("pause");
             player.trigger("pause");
-            clearInterval(timeout);
             break;
           // TODO: more states, trigger player
         }

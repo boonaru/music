@@ -80,11 +80,17 @@ var printTime = function(time) {
           that.trigger('next');
         });
 
+        var interval;
         this.on("play", function() {
           $('button.btn.play').hide().siblings('button.btn.pause').show();
-        });
+          var that = this;
+          interval = setInterval(function() {
+            that.trigger('service:info');
+          }, 500);
+        }, this);
         this.on("pause", function() {
           $('button.btn.pause').hide().siblings('button.btn.play').show();
+          clearInterval(interval);
         });
         this.on("initial_info", function(duration) {
           this.current.duration = duration;
