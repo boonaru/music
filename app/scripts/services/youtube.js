@@ -22,6 +22,16 @@ music.Services = music.Services || [];
       player.on("service:info", function() {
         player.trigger("info", this.ytplayer.getCurrentTime());
       }, this);
+      player.on("service:update", function(obj) {
+        if (obj.time != null) {
+          player.trigger("pause");
+          this.ytplayer.pauseVideo();
+          this.ytplayer.seekTo(this.ytplayer.getDuration()*(obj.time/100), true);
+          this.ytplayer.playVideo();
+        }
+        if (obj.volume != null)
+          this.ytplayer.setVolume(obj.volume);
+      }, this);
 
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";

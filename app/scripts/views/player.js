@@ -49,7 +49,10 @@ var printTime = function(time) {
           range: 'min',
           min: 0,
           max: 100,
-          step: .25
+          step: .25,
+          stop: function(event, ui) {
+            that.trigger('service:update', {time: ui.value});
+          }
         });
         this.$el.children('#volumeprogress').children('.progress-container').children('.progress').slider({
           orientation: 'vertical',
