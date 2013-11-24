@@ -59,10 +59,11 @@ var printTime = function(time) {
           range: 'max',
           min: 0,
           max: 100,
-          value: 100, // needs to be 100 so handle appears at top
+          value: 0, // needs to be 0 so handle appears at bottom
           slide: function(event, ui) {
-            $(this).slider('value', 100-ui.value);
-            console.log($(this).slider('value'));
+            // $(this).slider('value', 100-ui.value);
+            // console.log($(this).slider('value'));
+            that.trigger('service:update', {volume: 100-ui.value});
           }
         });
 
