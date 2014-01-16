@@ -9,7 +9,7 @@ music.Services = music.Services || [];
     initialize: function(player) {
       player.on("load", function(url) {
         if (_.indexOf(this.domains, url.domain()) > -1) {
-          console.log('playing '+url.domain());
+          // console.log('playing '+url.domain());
           this.play(url);
         }
       }, this);
@@ -76,7 +76,7 @@ music.Services = music.Services || [];
             player.trigger("play");
             break;
           case YT.PlayerState.PAUSED:
-            console.log("pause");
+            // console.log("pause");
             player.trigger("pause");
             break;
           // TODO: more states, trigger player
@@ -90,7 +90,7 @@ music.Services = music.Services || [];
     },
     load: function(id) {
       if (typeof id === "string") {
-        if (this.ytplayer === null) {
+        if (this.ytplayer.loadVideoById == null) {
           this.pending = id;
         } else {
           this.ytplayer.loadVideoById(id);

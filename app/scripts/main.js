@@ -35,9 +35,12 @@ window.music = {
         music.Routers.app = new Backbone.Router({
           routes: {
             '': function() {
-              this.navigate("page/0", {trigger: true, replace: true});
+              this.navigate("explore/page/0", {trigger: true, replace: true});
             },
-            'page/:n': function(n) {
+            'explore': function() {
+              this.navigate("explore/page/0", {trigger: true, replace: true});
+            },
+            'explore/page/:n': function(n) {
               songsview.gotoPage(n);
             },
             'play/*url': function(url) {

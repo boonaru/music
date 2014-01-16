@@ -2,6 +2,8 @@ $iconSpritePath: '/images/glyphicons-halflings.png';
 @import 'compass-breakpoint/stylesheets/breakpoint';
 @import 'sass-bootstrap/lib/bootstrap';
 
+$break: 700px;
+
 .vertical .progress {
     position: relative;
     width: 20px;
@@ -21,16 +23,69 @@ iframe {
   padding: 0;
 }
 
+.left {
+  width: 200px;
+  height: 100%;
+  position: relative;
+  float: left;
+  z-index: 3;
+  background-color: #FFF;
+  border-radius: 3px;
+  box-shadow: 0px 0px 0px 1px #ccc;
+  top: 35px;
+  /*display: none;*/
+  @include breakpoint($break) {
+    display: block;
+    top: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  ul.nav {
+    width: 100%;
+    margin: 0px;
+    @include breakpoint($break) {
+      border: none;
+    }
+    li {
+      float: none;
+      width: 100%;
+      a {
+        padding: 3px;
+      }
+    }
+  }
+}
+.right {
+  position: absolute;
+  @include breakpoint($break) {
+    left: 200px;
+  }
+  right: 0;
+  float: left;
+  button.navbar-toggle {
+    margin: 0px;
+    float: left;
+    border: 1px #ccc solid;
+    padding: 7px 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    .icon-bar {
+      background-color: #000;
+      width: 20px;
+    }
+  }
+}
+
 #songs {
   margin-top: 10px;
-  @include breakpoint(500px) {
+  @include breakpoint($break) {
     margin-top: 40px;
   }
   table {
     td {
       padding: 0px;
       a {
-        margin: 8px;
+        padding: 8px;
         display: block;
         width: 100%;
         text-decoration: none;
@@ -43,7 +98,7 @@ iframe {
   margin: 0;
   margin-top: 70px;
   text-align: right;
-  @include breakpoint(500px) {
+  @include breakpoint($break) {
     position: absolute;
     right: 0px;
     margin-top: 0px;
@@ -52,7 +107,7 @@ iframe {
 
 #player {
   position: relative;
-  @include breakpoint(500px) {
+  @include breakpoint($break) {
     position: absolute;
     right: 69px;
     left: 0px;
@@ -104,7 +159,7 @@ iframe {
       }
     }
   }
-  @include breakpoint(500px) {
+  @include breakpoint($break) {
     position: absolute;
     left: 211px;
     right: 34px;

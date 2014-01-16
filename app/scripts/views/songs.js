@@ -16,13 +16,21 @@ music.Views = music.Views || {};
         player: null,
         initialize: function() {
             var song_collection, valid_domains = [], parent = this;
+
+            // create player
             this.player = new music.Views.PlayerView({services: this.options.services});
+
+            // create list of valid domains to fetch from
             _.each(this.options.services, function(service) {
                 valid_domains = _.union(valid_domains, service.domains);
             });
+
+            // fetch songs from providers
             _.each(this.options.providers, function(provider, i) {
                 song_collection = new music.Collections.SongsCollection();
                 _.extend(song_collection, {domains: valid_domains}, provider, {model: music.Models.SongsModel.extend(provider.model)});
+
+                // fetch
                 song_collection.fetch({
                     success: function(m){
                         parent.songs.push.apply(parent.songs, m.models);
@@ -30,17 +38,23 @@ music.Views = music.Views || {};
                             music.Layout.trigger('ready');
                     }
                 });
+
+                // add
                 song_collection.on('add', function(m) {
                     parent.add(new music.Views.SongView({ model: m }));
                     parent.songs.push(m);
                 }, this);
+
+                // remove
                 song_collection.on('remove', function(m) {
                     parent.remove({model: m});
                     parent.songs.without(m);
                 }, this);
+
                 parent.collections.push(song_collection);
             }, this);
 
+            // player events
             this.player.on('refresh', function(){
                 this.refresh();
             }, this);
@@ -48,13 +62,20 @@ music.Views = music.Views || {};
             this.player.on('next', function(){
                 if (this.index == this.songs.length)
                     return;
-                console.log(this.index);
-                window.location = "#play/" + this.songs[++this.index].get("url"); // can't use navigate because query params get stripped
+                // console.log(this.index);
+                var target = this.songs[++this.index];
+                console.log(this);
+                this.getView({ model: target }).trigger("click");
+                target.trigger("play");
+                window.location = "#play/" + target.get("url"); // can't use navigate because query params get stripped
             }, this);
+
             this.player.on('prev', function(){
                 if (this.index == 0)
                     return;
-                window.location = "#play/" + this.songs[--this.index].get("url"); // can't use navigate because query params get stripped
+                var target = this.songs[--this.index];
+                this.views.getView({ model: target }).trigger("click");
+                window.location = "#play/" + target.get("url"); // can't use navigate because query params get stripped
             }, this);
 
             //this.player.play("http://www.youtube.com/watch?v=iZvm9NhRUHk");
