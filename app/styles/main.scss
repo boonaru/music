@@ -1,5 +1,5 @@
-$iconSpritePath: '/images/glyphicons-halflings.png';
-@import 'compass-breakpoint/stylesheets/breakpoint';
+$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+
 @import 'sass-bootstrap/lib/bootstrap';
 
 $break: 700px;
@@ -34,18 +34,18 @@ iframe {
   box-shadow: 0px 0px 0px 1px #ccc;
   top: 35px;
   /*display: none;*/
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     display: block;
     top: 0;
     border-radius: 0;
     box-shadow: none;
-  }
+  // }
   ul.nav {
     width: 100%;
     margin: 0px;
-    @include breakpoint($break) {
+    // @include breakpoint($break) {
       border: none;
-    }
+    // }
     li {
       float: none;
       width: 100%;
@@ -57,9 +57,9 @@ iframe {
 }
 .right {
   position: absolute;
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     left: 200px;
-  }
+  // }
   right: 0;
   float: left;
   button.navbar-toggle {
@@ -78,9 +78,9 @@ iframe {
 
 #songs {
   margin-top: 10px;
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     margin-top: 40px;
-  }
+  // }
   table {
     td {
       padding: 0px;
@@ -98,20 +98,20 @@ iframe {
   margin: 0;
   margin-top: 70px;
   text-align: right;
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     position: absolute;
     right: 0px;
     margin-top: 0px;
-  }
+  // }
 }
 
 #player {
   position: relative;
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     position: absolute;
     right: 69px;
     left: 0px;
-  }
+  // }
 }
 
 #timeprogress {
@@ -159,13 +159,13 @@ iframe {
       }
     }
   }
-  @include breakpoint($break) {
+  // @include breakpoint($break) {
     position: absolute;
     left: 211px;
     right: 34px;
     width: auto;
     top: 6px;
-  }
+  // }
 }
 #volumeprogress {
   button {

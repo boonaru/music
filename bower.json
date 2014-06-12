@@ -2,18 +2,15 @@
   "name": "music",
   "version": "0.0.0",
   "dependencies": {
-    "sass-bootstrap": "3.0.0",
-    "jquery": "2.1.0",
-    "jquery-ui": "1.10.4",
-    "underscore": "1.5.2",
-    "backbone": "1.1.0",
-    "modernizr": "~2.6.2",
-    "layoutmanager": "0.9.4",
-    "jquery.ui": "~1.10.3",
-    "swfobject": "*",
-    "uri.js": "~1.11.2",
-    "compass-breakpoint": "~2.0.6",
-    "react.backbone": "~0.1.0"
+    "sass-bootstrap": "~3.0.2",
+    "jquery": "~2.1.0",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.0",
+    "modernizr": "~2.7.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "compass-breakpoint": "~2.4.2",
+    "breakpoint-sass": "~2.4.2",
+    "layoutmanager": "~0.9.5"
+  }
 }

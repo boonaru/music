@@ -1,9 +1,9 @@
 music.Services = music.Services || [];
 
-(function(){
-	music.Services.push({
-		name: 'YouTube',
-		domains: ['youtube.com', 'youtu.be'],
+(function() {
+  music.Services.push({
+    name: 'YouTube',
+    domains: ['youtube.com', 'youtu.be'],
     ytplayer: null,
     pending: "",
     initialize: function(player) {
@@ -26,7 +26,7 @@ music.Services = music.Services || [];
         if (obj.time != null) {
           player.trigger("pause");
           this.ytplayer.pauseVideo();
-          this.ytplayer.seekTo(this.ytplayer.getDuration()*(obj.time/100), true);
+          this.ytplayer.seekTo(this.ytplayer.getDuration() * (obj.time / 100), true);
           this.ytplayer.playVideo();
         }
         if (obj.volume != null)
@@ -79,7 +79,7 @@ music.Services = music.Services || [];
             // console.log("pause");
             player.trigger("pause");
             break;
-          // TODO: more states, trigger player
+            // TODO: more states, trigger player
         }
         //event.target.stopVideo();
         // if (event.data == YT.PlayerState.PLAYING && !done) {
@@ -101,17 +101,16 @@ music.Services = music.Services || [];
     },
     play: function(str) {
       // str should be either the video id, url, or a URI object
+      console.log(str);
       if (typeof str === "string") {
         if (str.indexOf("http") === -1) {
           return this.load(str);
-        }
-        else
+        } else
           return this.play(new URI(str));
       } else if (typeof str === "object" && typeof str.query === "function") {
         if (str.domain() == this.domains[1]) {
           return this.play(str.path().replace('/', ''));
-        }
-        else {
+        } else {
           var query = str.query().split('&');
           _.each(query, function(q) {
             if (new RegExp("v=").test(q))
@@ -129,5 +128,5 @@ music.Services = music.Services || [];
     previous: function() {
 
     },
-	});
+  });
 })();
