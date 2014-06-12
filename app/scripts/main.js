@@ -45,20 +45,40 @@ window.music = {
             trigger: true,
             replace: true
           });
-        },
-        'explore/page/:n': function(n) {
-          songsview.gotoPage(n);
         }
         /*,
-        'play/*url': function(url) {
-          console.log(url);
-          songsview.player.play(url);
+        'explore/page/:n': function(n) {
+          songsview.gotoPage(n);
         }*/
       }
     });
     music.Routers.app.route(/play\/(.*)/i, function(url) {
       songsview.player.play(url);
     });
+    music.Routers.app.route(/(.*)/i, function(path) {
+      path = path.split(/\b\/{1}\b/);
+      console.log(path);
+      var i, updated = false;
+      for (i = 0; i < path.length; i++) {
+        if (path[i] === "explore") {
+          if (path[i + 1] !== "page" || isNaN(path[i + 2])) {
+            path.splice(1, 0, "page");
+            path.splice(2, 0, "0");
+            updated = true;
+            i = 2;
+          } else if (path[i] === "play") {
+            console.log(path[i + 1]);
+          }
+        }
+      }
+      if (updated)
+        this.navigate(path.join('/'), {
+          trigger: true,
+          replace: true
+        });
+    });
+
+
   }
 };
 $(document).ready(function() {
